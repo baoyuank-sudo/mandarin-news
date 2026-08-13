@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>華語每日即時新聞與語法練習 (TOCFL A2-B1)</title>
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --primary-hover: #0056b3;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-sub: #5f6c7b;
+            --accent-color: #34c759;
+            --warning-color: #ff9500;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: #eef6ff;
+            color: var(--primary-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-bottom: 2px solid #eef6ff;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* 閱讀短文樣式 */
+        .article-title-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .article-container {
+            background-color: #fafafa;
+            padding: 16px;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .article-text {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .article-en {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-sub);
+            font-style: italic;
+            border-top: 1px dashed #e0e0e0;
+            padding-top: 10px;
+        }
+
+        .word-count {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            text-align: right;
+        }
+
+        /* 按鈕樣式 */
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 2px 6px rgba(0,122,255,0.2);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            box-shadow: 0 2px 6px rgba(52,199,89,0.2);
+        }
+
+        .btn-accent:hover {
+            background-color: #28a745;
+        }
+
+        .btn-small {
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            border-radius: 12px;
+            margin-left: 8px;
+            background-color: #eef6ff;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            box-shadow: none;
+        }
+
+        .btn-small:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* 語法與生詞列表 */
+        .grammar-item {
+            margin-bottom: 16px;
+            background: #f8f9fa;
+            padding: 14px;
+            border-radius: 10px;
+        }
+
+        .grammar-title {
+            font-weight: bold;
+            color: var(--warning-color);
+            margin-bottom: 4px;
+        }
+
+        .mindmap-note {
+            background: #fffbe3;
+            border: 1px solid #ffe58f;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        /* 生詞卡片 */
+        .vocab-card {
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 12px;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .vocab-card:hover {
+            border-color: var(--primary-color);
+            background-color: #eef6ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .vocab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vocab-zh {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .speaker-icon {
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+
+        .vocab-pinyin {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .vocab-en {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+        }
+
+        /* 互動問題 */
+        .question-item {
+            margin-bottom: 16px;
+            padding: 14px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .question-q {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>華語每日新聞與語法練習</h1>
+        <div class="date-badge" id="currentDate">📅 正在讀取今日時間...</div>
+    </header>
+
+    <!-- 第一層：核心新聞（僅朗讀中文短文） -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>📌 今日菲律賓主要新聞 (每日自動變換)</span>
+            <button class="btn" onclick="speakText(document.getElementById('newsArticle').innerText)">
+                <span>🔊 聽新聞短文 (MP3)</span>
+            </button>
+        </div>
+        <div class="article-title-text" id="newsTitle">載入中...</div>
+        <div class="article-container">
+            <div class="article-text" id="newsArticle">載入中...</div>
+            <div class="article-en" id="newsArticleEn">Loading English translation...</div>
+        </div>
+        <div class="word-count" id="wordCountDisplay">字數：計算中...</div>
+    </div>
+
+    <!-- 第二層：關鍵語法解析 -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>💡 實用語法解析（2 個常用句型）</span>
+        </div>
+        <div id="grammarContainer"></div>
+    </div>
+
+    <!-- 第三層：心智圖關聯生詞與用法語音 -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>🧠 心智圖關聯生詞 (點擊生詞聽單字發音)</span>
+            <button class="btn btn-accent" onclick="speakVocabExplanation()">
+                <span>🔊 聽生詞用法解說 (MP3)</span>
+            </button>
+        </div>
+        
+        <div class="mindmap-note" id="mindmapNote"></div>
+
+        <div class="vocab-grid" id="vocabGrid"></div>
+    </div>
+
+    <!-- 第四層：互動問答挑戰 -->
+    <div class="section-card">
+        <div class="section-title">
+            <span>✍️ 課後趣味問答 (3 題)</span>
+        </div>
+        <div id="questionsContainer"></div>
+        <button class="btn" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="alert('回答得很好！繼續保持天天練習的好習慣！')">提交答案</button>
+    </div>
+</div>
+
+<script>
+    // 每日新聞輪播資料庫 (每天自動轉換)
+    const newsDatabase = [
+        {
+            title: "【美食與觀光展覽】",
+            article: "菲律賓首都馬尼拉今天舉辦國際美食展。許多廚師現場做菜，吸引大批民眾參加。這項活動不但能推廣當地特色美食，也帶動了當地的觀光旅遊發展。",
+            articleEn: "Manila, the capital of the Philippines, hosted an international food exhibition today. Many chefs cooked live on site, attracting a large crowd. This event not only promotes local specialty foods but also boosts local tourism development.",
+            grammar: [
+                {
+                    title: "1. 不但……，也…… (búdàn..., yě...)",
+                    desc: "<strong>使用原則：</strong>遞進句型，用來連接兩個優點或情況。",
+                    example: "例句：這項活動<strong>不但</strong>能推廣美食，<strong>也</strong>帶動觀光。"
+                },
+                {
+                    title: "2. 吸引 + 對象 + 動作 (xīyǐn...)",
+                    desc: "<strong>使用原則：</strong>表達事物具有魅力，讓其他人前來參與。",
+                    example: "例句：現場活動<strong>吸引</strong>大批民眾<strong>參加</strong>。"
+                }
+            ],
+            mindmap: "<strong>心智圖核心：【美食展覽與觀光】</strong><br>主題 ➔ 活動與場所（美食展、首都、當地）➔ 參與者（廚師、民眾）➔ 效益（特色、推廣、帶動、觀光、發展）",
+            vocab: [
+                { zh: "首都", pinyin: "shǒudū", en: "capital city", exp: "首都，指一個國家的中央政府所在地。例如：馬尼拉是菲律賓的首都。" },
+                { zh: "美食展", pinyin: "měishí zhǎn", en: "food exhibition", exp: "美食展，展示各種好吃食物的展覽。例如：週末很多人去逛美食展。" },
+                { zh: "廚師", pinyin: "chúshī", en: "chef / cook", exp: "廚師，專業做菜的人。例如：那位廚師做的料理非常有特色。" },
+                { zh: "民眾", pinyin: "mínzhòng", en: "public / citizens", exp: "民眾，指一般的社會大眾。例如：現場吸引了大批民眾參加。" },
+                { zh: "當地", pinyin: "dāngdì", en: "local", exp: "當地，指某件事物發生的那個地方。例如：我很喜歡品嚐當地的特色小吃。" },
+                { zh: "特色", pinyin: "tèsè", en: "feature / characteristic", exp: "特色，指特別、跟別人不一樣的地方。例如：這家店的特色是新鮮海鮮。" },
+                { zh: "推廣", pinyin: "tuīguǎng", en: "promote", exp: "推廣，讓更多人知道並接受好的事物。例如：這項活動能推廣台灣茶文化。" },
+                { zh: "帶動", pinyin: "dàidòng", en: "drive / spur on", exp: "帶動，引導並促進活動發展。例如：美食展帶動了附近的店家生意。" },
+                { zh: "觀光", pinyin: "guāngguāng", en: "tourism", exp: "觀光，去別的地方旅遊景點參觀。例如：每年有許多遊客來這裡觀光。" },
+                { zh: "發展", pinyin: "fǎzhǎn", en: "development", exp: "發展，事物由小變大、由簡單變完好的過程。例如：這個城市的觀光發展得很好。" }
+            ],
+            questions: [
+                "1. 馬尼拉今天舉辦了什麼活動？",
+                "2. 哪一種美食最能代表你的國家？請用「……不但……，也……」回答。",
+                "3. 如果你去菲律賓旅遊，你最想做什麼事？"
+            ]
+        },
+        {
+            title: "【綠色綠能科技】",
+            article: "菲律賓政府今天宣布建造全新的太陽能發電廠。這個計畫可以提供成千上萬戶家庭乾淨的電力。這不但能減少空氣污染，更能讓環境發展變得更好。",
+            articleEn: "The Philippine government announced today the construction of a brand-new solar power plant. This project can provide clean electricity to thousands of households. It not only reduces air pollution but also promotes better environmental development.",
+            grammar: [
+                {
+                    title: "1. 不但……，更…… (búdàn..., gèng...)",
+                    desc: "<strong>使用原則：</strong>表達遞進關係，後者比前者程度更高、影響更大。",
+                    example: "例句：這<strong>不但</strong>能減少污染，<strong>更</strong>能保護環境。"
+                },
+                {
+                    title: "2. 讓 + 對象 + 變好/變壞 (ràng... biàn...)",
+                    desc: "<strong>使用原則：</strong>表示致使語法，使某個事物產生狀態上的轉變。",
+                    example: "例句：這項計畫<strong>讓</strong>環境發展<strong>變得更好</strong>。"
+                }
+            ],
+            mindmap: "<strong>心智圖核心：【綠色能源與環境】</strong><br>主題 ➔ 設施與政策（政府、太陽能、發電廠）➔ 成果（電力、家庭）➔ 環境效益（乾淨、減少、空氣污染、環境、發展）",
+            vocab: [
+                { zh: "政府", pinyin: "zhèngfǔ", en: "government", exp: "政府，管理國家公共事務的機構。例如：政府今天宣布了新的政策。" },
+                { zh: "建造", pinyin: "jiànzào", en: "build / construct", exp: "建造，建築建立大型設施。例如：他們計畫建造一座新的發電廠。" },
+                { zh: "太陽能", pinyin: "tàiyángnéng", en: "solar energy", exp: "太陽能，來自太陽光的光能與熱能。例如：太陽能是一種乾淨的能源。" },
+                { zh: "發電廠", pinyin: "fādiànchǎng", en: "power plant", exp: "發電廠，生產電力的工廠設施。例如：這座發電廠提供整個城市的電力。" },
+                { zh: "計畫", pinyin: "jìhuà", en: "plan / project", exp: "計畫，預先擬定的工作內容與目標。例如：這個發電計畫非常重要。" },
+                { zh: "家庭", pinyin: "jiātíng", en: "family / household", exp: "家庭，共同生活的人組成的單位。例如：這項電力計畫幫助了許多家庭。" },
+                { zh: "乾淨", pinyin: "gānjìng", en: "clean", exp: "乾淨，沒有污染或髒亂。例如：我們需要乾淨的空氣與水資源。" },
+                { zh: "電力", pinyin: "diànlì", en: "electric power", exp: "電力，電所產生的能量。例如：夏天大家的電力使用量非常高。" },
+                { zh: "減少", pinyin: "jiǎnshǎo", en: "reduce / decrease", exp: "減少，使數量或程度變少。例如：騎腳踏車可以減少空氣污染。" },
+                { zh: "空氣污染", pinyin: "kōngqì wūrǎn", en: "air pollution", exp: "空氣污染，空氣中含有有害物質的情況。例如：減少空氣污染對身體健康很重要。" }
+            ],
+            questions: [
+                "1. 菲律賓政府今天宣布建造什麼設施？",
+                "2. 在你的日常生活中，你會如何減少污染？請用「……不但……，更……」回答。",
+                "3. 你家裡有哪些電器每天都需要用到電力？"
+            ]
+        },
+        {
+            title: "【文化與傳統節慶】",
+            article: "宿霧市這個週末盛大舉行傳統舞蹈節慶。街道上有許多表演者穿著彩色服裝跳舞。這項活動吸引許多外國觀光客，讓大家體驗在地文化。",
+            articleEn: "Cebu City is holding a grand traditional dance festival this weekend. Many performers in colorful costumes are dancing on the streets. This event attracts many foreign tourists, allowing everyone to experience local culture.",
+            grammar: [
+                {
+                    title: "1. 穿著 + 服裝 + 動作 (chuānzhe...)",
+                    desc: "<strong>使用原則：</strong>「著」表示動作持續的狀態，說明表演者當時的穿著與動作。",
+                    example: "例句：表演者<strong>穿著</strong>彩色服裝<strong>跳舞</strong>。"
+                },
+                {
+                    title: "2. 讓 + 大家 + 體驗/了解 (ràng... tǐyàn...)",
+                    desc: "<strong>使用原則：</strong>表示使動語法，提供機會給眾人去感受或參與。",
+                    example: "例句：活動<strong>讓大家體驗</strong>在地文化。"
+                }
+            ],
+            mindmap: "<strong>心智圖核心：【節慶活動與文化】</strong><br>主題 ➔ 地點與場所（宿霧市、街道）➔ 活動內容（傳統、節慶、舞蹈、表演者、彩色服裝）➔ 交流（外國觀光客、體驗、在地文化）",
+            vocab: [
+                { zh: "盛大", pinyin: "shèngdà", en: "grand / magnificent", exp: "盛大，形容規模非常大且熱鬧。例如：這場慶典舉辦得非常盛大。" },
+                { zh: "傳統", pinyin: "chuántǒng", en: "tradition / traditional", exp: "傳統，世代相傳的文化與習俗。例如：傳統舞蹈展現了當地的歷史。" },
+                { zh: "節慶", pinyin: "jiéqìng", en: "festival", exp: "節慶，值得慶祝的節日與活動。例如：這個週末全鎮都在慶祝節慶。" },
+                { zh: "街道", pinyin: "jiēdào", en: "street", exp: "街道，市區內兩旁有房屋的道路。例如：街道上擠滿了看表演的人群。" },
+                { zh: "表演者", pinyin: "biǎoyǎn zhě", en: "performer", exp: "表演者，進行舞蹈或音樂演出的專業人員。例如：表演者穿著色彩鮮艷的衣服。" },
+                { zh: "彩色", pinyin: "cǎi sè", en: "colorful", exp: "彩色，包含許多種顏色。例如：天空上有彩色的氣球。" },
+                { zh: "服裝", pinyin: "fújruāng", en: "costume / clothing", exp: "服裝，衣服與穿戴的配飾。例如：傳統服裝的顏色非常好看。" },
+                { zh: "體驗", pinyin: "tǐyàn", en: "experience", exp: "體驗，親自參與並感受事物。例如：來到這裡可以體驗手做美食的樂趣。" },
+                { zh: "在地", pinyin: "zàidì", en: "local", exp: "在地，當地、本土的意思。例如：在地文化吸引了世界各地的遊客。" },
+                { zh: "文化", pinyin: "wénhuà", en: "culture", exp: "文化，人類社會歷史創造的精神與物質成果。例如：了解不同的文化很有樂趣。" }
+            ],
+            questions: [
+                "1. 宿霧市這個週末舉行了什麼活動？",
+                "2. 你的國家有什麼傳統節慶？請簡單介紹一下。",
+                "3. 如果有外國朋友來你的國家，你最想帶他體驗什麼在地文化？"
+            ]
+        }
+    ];
+
+    let currentNewsData = null;
+
+    function init() {
+        // 1. 呈現今日時間 (台灣慣用格式)
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+        document.getElementById('currentDate').innerText = '📅 今日時間：' + now.toLocaleDateString('zh-TW', options);
+
+        // 2. 根據「今日日期」計算當天應加載的新聞 (每日自動轉換邏輯)
+        const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+        const newsIndex = dayOfYear % newsDatabase.length;
+        currentNewsData = newsDatabase[newsIndex];
+
+        // 3. 渲染新聞內容（中文短文與英文對照）
+        document.getElementById('newsTitle').innerText = currentNewsData.title;
+        document.getElementById('newsArticle').innerText = currentNewsData.article;
+        document.getElementById('newsArticleEn').innerText = currentNewsData.articleEn;
+        document.getElementById('wordCountDisplay').innerText = `字數：${currentNewsData.article.length} 字（適合 TOCFL A2-B1 程度）`;
+
+        // 4. 渲染語法解析
+        const grammarContainer = document.getElementById('grammarContainer');
+        grammarContainer.innerHTML = '';
+        currentNewsData.grammar.forEach(g => {
+            const div = document.createElement('div');
+            div.className = 'grammar-item';
+            div.innerHTML = `
+                <div class="grammar-title">${g.title}</div>
+                <div>${g.desc}</div>
+                <div style="color: var(--text-sub); font-size: 0.9rem; margin-top: 4px;">${g.example}</div>
+            `;
+            grammarContainer.appendChild(div);
+        });
+
+        // 5. 渲染心智圖生詞
+        document.getElementById('mindmapNote').innerHTML = currentNewsData.mindmap;
+        const vocabContainer = document.getElementById('vocabGrid');
+        vocabContainer.innerHTML = '';
+        currentNewsData.vocab.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'vocab-card';
+            card.onclick = () => speakText(item.zh);
+            card.innerHTML = `
+                <div class="vocab-header">
+                    <span class="vocab-zh">${item.zh}</span>
+                    <span class="speaker-icon">🔊</span>
+                </div>
+                <div class="vocab-pinyin">${item.pinyin}</div>
+                <div class="vocab-en">${item.en}</div>
+            `;
+            vocabContainer.appendChild(card);
+        });
+
+        // 6. 渲染問答題目 (加入 MP3 題目發音功能)
+        const qContainer = document.getElementById('questionsContainer');
+        qContainer.innerHTML = '';
+        currentNewsData.questions.forEach((qText, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-item';
+            qDiv.innerHTML = `
+                <div class="question-q">
+                    <span id="q${idx}Text">${qText}</span>
+                    <button class="btn btn-small" onclick="speakText(document.getElementById('q${idx}Text').innerText)">🔊 聽題目</button>
+                </div>
+                <input type="text" placeholder="請在此輸入答案...">
+            `;
+            qContainer.appendChild(qDiv);
+        });
+    }
+
+    // Web Speech API 朗讀功能 (限定繁體中文發音 zh-TW, 0.8x 語速)
+    function speakText(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'zh-TW';
+            utterance.rate = 0.8; // 適合 TOCFL A2-B1 學習者的慢速發音
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("您的瀏覽器不支援 Web Speech API 語音功能。");
+        }
+    }
+
+    // 生詞詳細用法語音解說播放 (純中文朗讀)
+    function speakVocabExplanation() {
+        if (!currentNewsData) return;
+        let fullExplanation = "現在為您解說十個生詞的用法：\n";
+        currentNewsData.vocab.forEach((item, index) => {
+            fullExplanation += `第${index + 1}個，${item.zh}。${item.exp}\n`;
+        });
+        speakText(fullExplanation);
+    }
+
+    window.onload = init;
+</script>
+
+</body>
+</html>
